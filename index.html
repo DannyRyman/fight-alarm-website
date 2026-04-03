@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Main Event: Fight Alarm — Never Miss the Main Event</title>
+
+  <!-- ═══════════════════════════════════════════════════
+       GOOGLE ANALYTICS 4
+       Replace G-XXXXXXXXXX with your real Measurement ID
+       Get it from: analytics.google.com → Admin → Data Streams
+  ════════════════════════════════════════════════════ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      page_title: 'The Main Event: Fight Alarm',
+      send_page_view: true
+    });
+  </script>
+  <!-- ═══════════════════════════════════════════════════ -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #D7263D;
+      --red-dark: #A01828;
+      --red-glow: rgba(215,38,61,0.35);
+      --black: #0A0A0A;
+      --off-black: #111111;
+      --card: #161616;
+      --border: rgba(255,255,255,0.07);
+      --text: #F0EDE8;
+      --muted: #7A7068;
+      --gold: #C9A84C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+      text-decoration: none;
+      border-left: 2px solid var(--red);
+      padding-left: 10px;
+    }
+    .nav-logo-top {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+    .nav-logo-bottom {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      color: var(--red);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #C8C4BE;
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--red);
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      nav { padding: 16px 24px; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 60%, rgba(215,38,61,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(215,38,61,0.06) 0%, transparent 60%);
+    }
+
+    /* Animated ring corners */
+    .ring-corner {
+      position: absolute;
+      width: 80px; height: 80px;
+      border-color: rgba(215,38,61,0.25);
+      border-style: solid;
+      animation: pulse-corner 3s ease-in-out infinite;
+    }
+    .ring-corner.tl { top: 80px; left: 48px; border-width: 2px 0 0 2px; }
+    .ring-corner.tr { top: 80px; right: 48px; border-width: 2px 2px 0 0; }
+    .ring-corner.bl { bottom: 60px; left: 48px; border-width: 0 0 2px 2px; }
+    .ring-corner.br { bottom: 60px; right: 48px; border-width: 0 2px 2px 0; }
+
+    @keyframes pulse-corner {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 14vw, 160px);
+      line-height: 0.9;
+      letter-spacing: 2px;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.35s;
+    }
+
+    .hero-title .accent { color: var(--red); }
+
+    .hero-subtitle {
+      margin-top: 32px;
+      font-size: clamp(17px, 2.5vw, 22px);
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.5s;
+    }
+
+    .hero-subtitle strong { color: var(--text); font-weight: 500; }
+
+    .hero-ctas {
+      margin-top: 52px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.65s;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--red-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px var(--red-glow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.25); color: #fff; }
+
+    .hero-scroll {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 48px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.4s;
+    }
+    .hero-scroll span {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--red), transparent);
+      animation: scroll-anim 1.5s ease-in-out infinite;
+    }
+    @keyframes scroll-anim {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── PROBLEM SECTION ─── */
+    .problem {
+      padding: 100px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      letter-spacing: 1px;
+      line-height: 1;
+      margin-bottom: 28px;
+    }
+
+    .section-body {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .section-body strong { color: var(--text); font-weight: 500; }
+
+    /* Big stat strip */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 64px;
+    }
+
+    .stat-block {
+      background: var(--card);
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 72px);
+      color: var(--red);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      padding: 100px 24px;
+      background: var(--off-black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .how::before {
+      content: '';
+      position: absolute;
+      left: -200px; top: 50%;
+      transform: translateY(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(215,38,61,0.07), transparent 70%);
+      pointer-events: none;
+    }
+
+    .how-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .how-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .step {
+      background: var(--black);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .step:hover { background: var(--card); }
+
+    .step::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .step:hover::before { transform: scaleX(1); }
+
+    .step-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      line-height: 1;
+      color: rgba(215,38,61,0.12);
+      position: absolute;
+      top: 20px; right: 24px;
+      pointer-events: none;
+    }
+
+    .step-icon {
+      font-size: 36px;
+      margin-bottom: 24px;
+    }
+
+    .step-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .step-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .step-desc strong { color: var(--text); font-weight: 500; }
+
+    /* ─── FEATURES ─── */
+    .features {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-header { text-align: center; margin-bottom: 72px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .feature-card {
+      background: var(--black);
+      padding: 40px 36px;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .feature-card:hover { background: var(--card); }
+
+    .feature-icon {
+      width: 48px; height: 48px;
+      background: rgba(215,38,61,0.1);
+      border: 1px solid rgba(215,38,61,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+
+    .feature-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .feature-pro {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 3px 8px;
+    }
+
+    /* ─── SOCIAL PROOF ─── */
+    .proof {
+      background: var(--off-black);
+      padding: 100px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .proof-inner { max-width: 800px; margin: 0 auto; }
+
+    blockquote {
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--text);
+      position: relative;
+      padding: 0 40px;
+    }
+
+    .quote-attr {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .quote-attr strong { color: var(--red); }
+
+    /* ─── DOWNLOAD / QR SECTION ─── */
+    .download {
+      padding: 120px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .download-copy .section-title { text-align: left; }
+    .download-copy .section-body { text-align: left; margin-left: 0; margin-top: 20px; }
+
+    .download-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .badge-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 16px 24px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      max-width: 260px;
+    }
+    .badge-btn:hover { border-color: var(--red); background: rgba(215,38,61,0.05); }
+
+    .badge-btn-icon { font-size: 28px; }
+
+    .badge-btn-text { line-height: 1.3; }
+    .badge-btn-text small {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .badge-btn-text strong { font-size: 16px; font-weight: 600; }
+
+    /* QR Panel */
+    .qr-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .qr-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--red), transparent);
+    }
+
+    .qr-tabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 36px;
+      background: var(--border);
+      padding: 2px;
+    }
+
+    .qr-tab {
+      flex: 1;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .qr-tab.active {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .qr-display {
+      background: #fff;
+      padding: 20px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    #qr-code canvas, #qr-code img { display: block; }
+
+    .qr-caption {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .qr-caption strong { color: var(--text); display: block; font-size: 15px; margin-bottom: 6px; }
+
+    .qr-instruction {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .qr-instruction::before, .qr-instruction::after {
+      content: '';
+      height: 1px;
+      width: 40px;
+      background: var(--border);
+    }
+
+    /* ─── PRICING ─── */
+    .pricing {
+      background: var(--off-black);
+      padding: 100px 24px;
+    }
+
+    .pricing-inner { max-width: 1100px; margin: 0 auto; }
+    .pricing-header { text-align: center; margin-bottom: 48px; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .pricing-card {
+      background: var(--black);
+      padding: 48px 40px;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      background: var(--card);
+    }
+
+    .pricing-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .pricing-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .pricing-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .pricing-price sup { font-size: 24px; vertical-align: top; margin-top: 10px; }
+    .pricing-price sub { font-size: 16px; color: var(--muted); }
+
+    .pricing-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    .pricing-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .pricing-feature .check { color: var(--red); font-weight: 700; flex-shrink: 0; }
+    .pricing-feature.included { color: var(--text); }
+
+    .pricing-cta {
+      display: block;
+      width: 100%;
+      margin-top: 32px;
+      padding: 14px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .pricing-cta.primary { background: var(--red); color: #fff; }
+    .pricing-cta.primary:hover { background: var(--red-dark); }
+    .pricing-cta.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .pricing-cta.secondary:hover { border-color: rgba(255,255,255,0.25); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 60px 48px 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 3px;
+      color: var(--text);
+    }
+    .footer-logo span { color: var(--red); }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .ring-corner { display: none; }
+      .stat-strip { grid-template-columns: 1fr; }
+      .download { grid-template-columns: 1fr; gap: 48px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; padding: 40px 24px 32px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+      .steps { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-left">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-top">The Main Event</span>
+        <span class="nav-logo-bottom">Fight Alarm</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#download">Download</a></li>
+      </ul>
+    </div>
+    <a href="#download" class="nav-cta">Get the App</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="ring-corner tl"></div>
+    <div class="ring-corner tr"></div>
+    <div class="ring-corner bl"></div>
+    <div class="ring-corner br"></div>
+
+    <p class="hero-eyebrow">🥊 The Smart Fight Fan Alarm</p>
+    <h1 class="hero-title">THE MAIN EVENT:<br><span class="accent">FIGHT ALARM</span></h1>
+    <p class="hero-subtitle">
+      Stop setting your alarm for <strong>4am just in case</strong>.<br />
+      We'll wake you up <strong>minutes before the ringwalk</strong> — not a moment sooner.
+    </p>
+    <div class="hero-ctas">
+      <a href="#download" class="btn-primary">Get the App</a>
+      <a href="#how" class="btn-secondary">See How It Works</a>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <p class="section-label">The Problem</p>
+    <h2 class="section-title">The Main Event Could Be at <span style="color:var(--red)">4am. Or 6am.</span> You Never Know.</h2>
+    <p class="section-body">
+      Every big UFC or boxing card from the US means a late night for European fans. The problem is the main event ringwalk depends entirely on how long every undercard fight lasts — information that's <strong>unknowable in advance</strong>. So you either sacrifice your whole night's sleep, or you skip the fight.
+    </p>
+
+    <div class="stat-strip">
+      <div class="stat-block">
+        <div class="stat-number">~60%</div>
+        <div class="stat-label">of major cards originate from US time zones</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-number">90 min</div>
+        <div class="stat-label">average variance in main event start time</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-number">14M+</div>
+        <div class="stat-label">European fans who feel this exact pain</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="how-inner">
+      <div class="how-header">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title">Three Steps. <span style="color:var(--red)">That's It.</span></h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-icon">🔍</div>
+          <h3 class="step-title">Pick Your Fight</h3>
+          <p class="step-desc">Browse upcoming UFC and boxing events. Find your bout — whether it's the main event, a co-main, or any fight on the card. <strong>Set your alert in seconds.</strong></p>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-icon">😴</div>
+          <h3 class="step-title">Go to Sleep</h3>
+          <p class="step-desc">RingWalk monitors the live card in real time. It tracks how long each fight lasts and <strong>recalculates</strong> your estimated ringwalk as the night goes on.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-icon">🔔</div>
+          <h3 class="step-title">Wake Up for Your Fight</h3>
+          <p class="step-desc">Your phone alarm fires <strong>15–30 minutes before the ringwalk</strong> — just enough time to make a brew and settle in. You won't miss a second of it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-header">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Built for the <span style="color:var(--red)">Real Fan</span></h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⏰</div>
+        <h3 class="feature-title">Smart RingWalk Alarm</h3>
+        <p class="feature-desc">Not just a timer — a live-calibrated alarm that adjusts in real time as the undercard unfolds. KO in round one? The alarm updates. Gruelling 15-rounder? Same deal.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <h3 class="feature-title">Live Card Tracker</h3>
+        <p class="feature-desc">Real-time status of the fight currently in the ring — so you can check at a glance exactly how far away your main event is without spoilers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3 class="feature-title">Auto Time Zone</h3>
+        <p class="feature-desc">All times are automatically converted to your local time. No mental maths. No 3am Google searches. Just your local fight time, always correct.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🥊</div>
+        <h3 class="feature-title">Any Bout, Any Promotion</h3>
+        <p class="feature-desc">UFC. Boxing. ONE Championship. PFL. Set alerts for any fight on any card — not just the main event. Follow your favourite fighter wherever they fight.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="proof">
+    <div class="proof-inner">
+      <p class="section-label">From Fight Fans</p>
+      <blockquote>
+        "I used to set four alarms between 3am and 6am just in case. Now I set one RingWalk alert and sleep properly. Genuinely changed fight nights for me."
+      </blockquote>
+      <p class="quote-attr">— <strong>@GloveUp_UK</strong> · UFC Fan · Manchester</p>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD + QR -->
+  <section class="download" id="download">
+    <div class="download-copy">
+      <p class="section-label">Download</p>
+      <h2 class="section-title">Never Miss the <span style="color:var(--red)">Main Event</span> Again</h2>
+      <p class="section-body">Free to download. Available on iOS and Android. Set your first alarm in under 60 seconds.</p>
+
+      <div class="download-badges">
+        <a href="https://apps.apple.com" class="badge-btn" target="_blank" rel="noopener">
+          <span class="badge-btn-icon">🍎</span>
+          <div class="badge-btn-text">
+            <small>Download on the</small>
+            <strong>App Store</strong>
+          </div>
+        </a>
+        <a href="https://play.google.com" class="badge-btn" target="_blank" rel="noopener">
+          <span class="badge-btn-icon">▶</span>
+          <div class="badge-btn-text">
+            <small>Get it on</small>
+            <strong>Google Play</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="qr-panel">
+      <div class="qr-tabs">
+        <button class="qr-tab active" onclick="switchQR('ios', this)">iOS</button>
+        <button class="qr-tab" onclick="switchQR('android', this)">Android</button>
+      </div>
+
+      <div class="qr-display">
+        <div id="qr-code"></div>
+      </div>
+
+      <div class="qr-caption">
+        <strong>Scan to Download</strong>
+        Opens the App Store directly on your phone.<br />No typing, no searching — just scan and download.
+      </div>
+
+      <div class="qr-instruction">Point your camera here</div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-inner">
+      <div class="pricing-header">
+        <p class="section-label">Pricing</p>
+        <h2 class="section-title">Your Fight. <span style="color:var(--red)">Your Choice.</span></h2>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- TIER 1: First Alert Free -->
+        <div class="pricing-card">
+          <p class="pricing-badge">Try It First</p>
+          <h3 class="pricing-name">First Alert Free</h3>
+          <div class="pricing-price"><sup>$</sup>0<sub> one time</sub></div>
+          <div class="pricing-divider"></div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;">New to the app? Try it completely free on your first fight — no card required. See exactly how it works before you spend a penny.</p>
+          <div class="pricing-feature included"><span class="check">✓</span> 1 free ringwalk alert — any fight, any card</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Live card tracker</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Auto time zone conversion</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Fight browser — all upcoming events</div>
+          <div class="pricing-feature"><span class="check" style="color:var(--muted)">–</span> One-time use only</div>
+          <a href="#download" class="pricing-cta secondary">Try for Free</a>
+        </div>
+
+        <!-- TIER 2: Pay Per Fight -->
+        <div class="pricing-card featured">
+          <p class="pricing-badge">Most Flexible</p>
+          <h3 class="pricing-name">Pay Per Fight</h3>
+          <div class="pricing-price"><sup>$</sup>1<sub>.99 / alert</sub></div>
+          <div class="pricing-divider"></div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;">Only watch the big ones? Pay only when you need it. No subscription, no commitment — just set your alert and go to sleep.</p>
+          <div class="pricing-feature included"><span class="check">✓</span> One ringwalk alert per purchase</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Any fight, any promotion</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Live card tracker</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Auto time zone conversion</div>
+          <div class="pricing-feature included"><span class="check">✓</span> No subscription required</div>
+          <a href="#download" class="pricing-cta primary">Buy an Alert</a>
+        </div>
+
+        <!-- TIER 3: Annual -->
+        <div class="pricing-card">
+          <p class="pricing-badge">Best Value</p>
+          <h3 class="pricing-name">Fight Pass</h3>
+          <div class="pricing-price"><sup>$</sup>9<sub>.99 / year</sub></div>
+          <div class="pricing-divider"></div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;">For the real fight fan. Unlimited alerts for every card all year — UFC, boxing, and more. Works out to less than a single alert per month.</p>
+          <div class="pricing-feature included"><span class="check">✓</span> Unlimited alerts — every fight, every card</div>
+          <div class="pricing-feature included"><span class="check">✓</span> All promotions: UFC, Boxing, ONE, PFL</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Live card tracker</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Fighter tracking across all promotions</div>
+          <div class="pricing-feature included"><span class="check">✓</span> Home screen fight widget</div>
+          <a href="#download" class="pricing-cta secondary">Get Fight Pass</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">The Main Event: <span>Fight Alarm</span></div>
+    <nav class="footer-links">
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#download">Download the App</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Contact Us</a>
+    </nav>
+    <p class="footer-copy">© 2025 The Main Event: Fight Alarm. All rights reserved. Never miss the main event.</p>
+  </footer>
+
+  <script>
+    // QR Code links — replace with your real App Store / Play Store URLs when live
+    const QR_URLS = {
+      ios: 'https://apps.apple.com/gb/app/ringwalk',
+      android: 'https://play.google.com/store/apps/details?id=com.ringwalk'
+    };
+
+    let currentQR = null;
+    let currentPlatform = 'ios';
+
+    function generateQR(platform) {
+      const container = document.getElementById('qr-code');
+      container.innerHTML = '';
+
+      currentQR = new QRCode(container, {
+        text: QR_URLS[platform],
+        width: 180,
+        height: 180,
+        colorDark: '#0A0A0A',
+        colorLight: '#FFFFFF',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      currentPlatform = platform;
+    }
+
+    function switchQR(platform, btn) {
+      document.querySelectorAll('.qr-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      generateQR(platform);
+
+      const caption = document.querySelector('.qr-caption strong');
+      caption.textContent = platform === 'ios' ? 'Scan to Download on iPhone' : 'Scan to Download on Android';
+
+      // Track QR tab switch
+      gtag('event', 'qr_tab_switch', {
+        event_category: 'QR Code',
+        event_label: platform === 'ios' ? 'Switched to iOS QR' : 'Switched to Android QR'
+      });
+    }
+
+    // Init
+    generateQR('ios');
+
+    // ── GA4 EVENT TRACKING ──────────────────────────────
+
+    // Track all CTA button clicks
+    const trackingMap = [
+      { selector: 'a[href="#download"].btn-primary',   label: 'Hero — Get the App' },
+      { selector: 'a[href="#how"].btn-secondary',      label: 'Hero — See How It Works' },
+      { selector: 'a[href="#download"].nav-cta',       label: 'Nav — Get the App' },
+      { selector: '.badge-btn[href*="apple"]',         label: 'Download — App Store Badge' },
+      { selector: '.badge-btn[href*="play"]',          label: 'Download — Google Play Badge' },
+      { selector: '.pricing-cta.secondary:nth-of-type(1)', label: 'Pricing — Try for Free' },
+      { selector: '.pricing-cta.primary',              label: 'Pricing — Buy an Alert' },
+      { selector: '.pricing-cta.secondary:last-of-type', label: 'Pricing — Get Fight Pass' },
+    ];
+
+    trackingMap.forEach(({ selector, label }) => {
+      document.querySelectorAll(selector).forEach(el => {
+        el.addEventListener('click', () => {
+          gtag('event', 'cta_click', {
+            event_category: 'Engagement',
+            event_label: label
+          });
+        });
+      });
+    });
+
+    // Track scroll depth milestones (25%, 50%, 75%, 100%)
+    const depths = [25, 50, 75, 100];
+    const reached = new Set();
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      depths.forEach(d => {
+        if (scrolled >= d && !reached.has(d)) {
+          reached.add(d);
+          gtag('event', 'scroll_depth', {
+            event_category: 'Scroll',
+            event_label: `${d}% of page`
+          });
+        }
+      });
+    });
+
+    // Track section views (How It Works, Features, Pricing, Download)
+    const sections = [
+      { id: 'how',      label: 'How It Works' },
+      { id: 'features', label: 'Features' },
+      { id: 'pricing',  label: 'Pricing' },
+      { id: 'download', label: 'Download / QR' },
+    ];
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          gtag('event', 'section_view', {
+            event_category: 'Page Sections',
+            event_label: sections.find(s => s.id === e.target.id)?.label || e.target.id
+          });
+          sectionObserver.unobserve(e.target); // fire once per session
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver.observe(el);
+    });
+
+    // ── END GA4 TRACKING ────────────────────────────────
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.step, .feature-card, .stat-block, .pricing-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
